@@ -1,0 +1,26 @@
+name: Version Release
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        type: 'string'
+        required: true
+        description: 'Tag to release'
+
+jobs:
+  deploy_stable_version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+        with:
+          # We need to fetch all branches and commits so that Nx affected has a base to compare against.
+          fetch-depth: 0
+
+      - name: Stable app version
+        run: |
+          stable=${{ inputs.tag }}
+          version=${stable##*@}
+          name=$(echo "$stable" | sed -E 's/@[^/]+\/([^@]+)@.*/"\1"/')
+          echo "$version was released for $name" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,24 @@
+name: Release for many environments (but not really)
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  sbox-stable:
+    uses: ./.github/workflows/release.yml
+    with:
+      tag: ${{ github.event.release.tag_name }}
+    secrets: inherit
+
+  stage-stable:
+    uses: ./.github/workflows/release.yml
+    with:
+      tag: ${{ github.event.release.tag_name }}
+    secrets: inherit
+
+  prod-stable:
+    uses: ./.github/workflows/release.yml
+    with:
+      tag: ${{ github.event.release.tag_name }}
+    secrets: inherit
