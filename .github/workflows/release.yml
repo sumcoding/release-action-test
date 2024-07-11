@@ -3,6 +3,10 @@ name: Version Release
 on:
   workflow_call:
     inputs:
+      environment:
+        description: 'Environment name'
+        required: true
+        type: string
       tag:
         type: 'string'
         required: true
@@ -11,6 +15,8 @@ on:
 jobs:
   deploy_stable_version:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v4
