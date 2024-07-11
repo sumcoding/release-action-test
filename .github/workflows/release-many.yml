@@ -2,7 +2,7 @@ name: Release for many environments (but not really)
 
 on:
   release:
-    types: [released]
+    types: [published]
 
 jobs:
   sbox-stable:
